@@ -1,0 +1,35 @@
+The implementation utilizes a Dispatcher/Worker Model to efficiently handle concurrent task
+execution in Linux using C programming language. At the core of the solution lies the
+initialization process, where the dispatcher initializes by parsing command-line arguments
+and spawning worker threads. This initialization process ensures that the necessary
+resources, such as counter files and worker threads, are set up before the main execution
+begins.
+
+Counter files are created during initialization, with each counter file representing a specific
+counter used throughout the program. These counter files are crucial for accurately tracking
+and updating counter values during program execution. By utilizing counter files, the solution
+ensures data integrity and persistence across multiple program runs.
+Worker threads are created during initialization and remain active throughout the program's
+execution. These threads are responsible for executing queued jobs offloaded by the
+dispatcher. Each worker thread operates independently, executing commands serially within
+a job. Synchronization mechanisms, such as mutexes and condition variables, are employed
+to ensure thread safety and prevent race conditions when accessing shared resources, such
+as the work queue.
+
+The implementation includes a shared work queue where worker jobs are queued for
+execution. This work queue acts as a buffer between the dispatcher and worker threads,
+allowing for efficient task distribution and load balancing. Worker jobs are queued in the
+work queue as command lines read from the input command file. Each command line is
+parsed, and if it represents a worker job, it is enqueued in the work queue for execution by
+an available worker thread.
+
+Logging capabilities are incorporated into the solution to trace the execution flow and
+provide insights into program behavior. Each worker thread opens a log file to record job
+start and end times, facilitating debugging and performance analysis. Additionally, the
+dispatcher logs command reading from the input file, providing a comprehensive record of
+program execution.
+
+Upon completing command file processing, the dispatcher waits for all pending background
+commands to complete before calculating and displaying statistics. These statistics, including
+total running time, sum, min, average, and max job turnaround times, offer valuable insights
+into program performance and efficiency.
