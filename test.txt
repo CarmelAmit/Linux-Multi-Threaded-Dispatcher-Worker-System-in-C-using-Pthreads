@@ -1,0 +1,14 @@
+worker           increment 1; decrement 2; msleep 500;
+worker increment 1; decrement 2; msleep 5000;
+worker increment 1; decrement 2; msleep 5000;
+worker increment          1; decrement 2; msleep 5000;
+worker increment 1; decrement 2; msleep 5000;
+worker increment 1;            decrement 2; msleep        5000;
+        dispatcher_wait         
+worker increment 1; decrement 2;     msleep 3000;               
+worker             increment 1; decrement 2; msleep 5000;
+worker increment 1; decrement 2; msleep 200;
+worker increment 1; decrement 2;   msleep 300;
+worker msleep 8000; 
+        dispatcher_msleep 2000;
+worker increment 3; msleep 5000;
